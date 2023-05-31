@@ -6,7 +6,7 @@ export class DishUpdateService {
     this.userRepository = userRepository
   }
 
-  async execute({ dish_id, user_id, name, price, description, category }) {
+  async execute({ dish_id, user_id, name, price, description, category, ingredients }) {
     const user = await this.userRepository.findById(user_id)
 
     const isAdmin = user.isAdmin
@@ -27,7 +27,8 @@ export class DishUpdateService {
       name,
       price,
       description,
-      category
+      category,
+      ingredients
     })
 
     return dish

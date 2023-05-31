@@ -6,7 +6,7 @@ import { UserRepository } from "../repositories/UserRepository.js"
 
 export class DishesController {
   async create(req, res) {
-    const { name, price, description, category } = req.body
+    const { name, price, description, category, ingredients } = req.body
     const user_id = req.user.id
 
     const dishRepository = new DishRepository()
@@ -18,14 +18,15 @@ export class DishesController {
       name,
       price,
       description,
-      category
+      category,
+      ingredients
     })
 
     return res.status(201).json()
   }
 
   async update(req, res) {
-    const { name, price, description, category } = req.body
+    const { name, price, description, category, ingredients } = req.body
     const { dish_id } = req.query
     const user_id = req.user.id
 
@@ -39,7 +40,8 @@ export class DishesController {
       name,
       price,
       description,
-      category
+      category,
+      ingredients
     })
 
     return res.json(response)

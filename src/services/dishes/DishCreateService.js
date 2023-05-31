@@ -6,7 +6,7 @@ export class DishCreateService {
     this.userRepository = userRepository
   }
 
-  async execute({ user_id, name, price, description, category }) {
+  async execute({ user_id, name, price, description, category, ingredients }) {
     const user = await this.userRepository.findById(user_id)
 
     const isAdmin = user.isAdmin
@@ -15,7 +15,7 @@ export class DishCreateService {
       throw new AppError('Somente usuários admin podem cadastrar um prato.')
     }
 
-    const response = await this.dishRepository.create({ name, price, description, category })
+    const response = await this.dishRepository.create({ name, price, description, category, ingredients })
 
     return response
   }

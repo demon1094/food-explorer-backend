@@ -7,19 +7,26 @@ export class DishRepository {
     return dish
   }
 
-  async create({ name, price, description, category }) {
-    const dishId = await knex('dishes').insert({
+  async create({ name, price, description, category, ingredients }) {
+    const [ dish_id ] = await knex('dishes').insert({
       name,
       price,
       description,
       category
     })
 
-    return dishId
+    const ingredientsInsert = ingredients.map(ingredient => {
+      return {
+        dish_id,
+        name: ingredient
+      }
+    })
+
+    await knex('ingredients').insert(ingredientsInsert)
   }
 
-  async update({ id, name, price, description, category }) {
-    const dishUpdated = await knex('dishes')
+  async update({ id, name, price, description, category, ingredients }) {
+    await knex('dishes')
     .where({ id })
     .update({
       name,
@@ -29,7 +36,18 @@ export class DishRepository {
       updated_at: knex.fn.now()
     })
 
-    return dishUpdated
+    const ingredientsUpdate = ingredients.map(ingredient => {
+      return {
+        dish_id: id,
+        name: ingredient
+      }
+    })
+
+    await knex('ingredients')
+    .where({ dish_id: id })
+    .delete()
+
+    await knex('ingredients').insert(ingredientsUpdate)
   }
 
   async delete(id) {
