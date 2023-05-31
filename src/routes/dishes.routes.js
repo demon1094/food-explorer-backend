@@ -10,3 +10,4 @@ export const dishesRoutes = Router()
 
 dishesRoutes.post('/', EnsureAuthenticated, dishesController.create)
 dishesRoutes.put('/', EnsureAuthenticated, dishesController.update)
+dishesRoutes.delete('/', EnsureAuthenticated, dishesController.delete)

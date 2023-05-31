@@ -1,5 +1,6 @@
 import { DishCreateService } from "../services/dishes/DishCreateService.js"
 import { DishUpdateService } from "../services/dishes/DishUpdateService.js"
+import { DishDeleteService } from "../services/dishes/DishDeleteService.js"
 import { DishRepository } from "../repositories/DishRepository.js"
 import { UserRepository } from "../repositories/UserRepository.js"
 
@@ -40,6 +41,19 @@ export class DishesController {
       description,
       category
     })
+
+    return res.json(response)
+  }
+
+  async delete(req, res) {
+    const { dish_id } = req.query
+    const user_id = req.user.id
+
+    const dishRepository = new DishRepository()
+    const userRepository = new UserRepository()
+    const dishDeleteService = new DishDeleteService(dishRepository, userRepository)
+
+    const response = await dishDeleteService.execute({ dish_id, user_id })
 
     return res.json(response)
   }

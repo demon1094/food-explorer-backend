@@ -31,4 +31,10 @@ export class DishRepository {
 
     return dishUpdated
   }
+
+  async delete(id) {
+    const deletedDish = await knex('dishes').where({ id }).delete()
+
+    return deletedDish
+  }
 }
