@@ -47,6 +47,26 @@ export class DishesController {
     return res.json(response)
   }
 
+  async show(req, res) {
+    const { id } = req.params
+
+    const dishRepository = new DishRepository()
+
+    const dish = await dishRepository.show(id)
+
+    return res.json(dish)
+  }
+
+  async index(req, res) {
+    const { name } = req.query
+
+    const dishRepository = new DishRepository()
+    
+    const response = await dishRepository.index({ name })
+
+    return res.json(response)
+  } 
+
   async delete(req, res) {
     const { dish_id } = req.query
     const user_id = req.user.id

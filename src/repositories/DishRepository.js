@@ -50,6 +50,31 @@ export class DishRepository {
     await knex('ingredients').insert(ingredientsUpdate)
   }
 
+  async show(id) {
+    const dishes = await knex('dishes').where({ id }).first()
+    const ingredients = await knex('ingredients').where({ dish_id: id })
+
+    return {
+      ...dishes,
+      ingredients
+    }
+  }
+
+  async index({ name }) {
+    const dishes = await knex('ingredients')
+    .select([
+      'dishes.name',
+      'dishes.id'
+    ])
+    .whereLike('dishes.name', `%${name}%`)
+    .orWhereLike('ingredients.name', `%${name}%`)
+    .innerJoin('dishes', 'dishes.id', 'ingredients.dish_id')
+    .groupBy('dishes.id')
+    .orderBy('dishes.name')
+
+    return dishes
+  }
+
   async delete(id) {
     const deletedDish = await knex('dishes').where({ id }).delete()
 
