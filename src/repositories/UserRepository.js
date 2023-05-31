@@ -35,4 +35,10 @@ export class UserRepository {
 
     return userUpdated
   }
+
+  async delete(id) {
+    const userDeleted = await knex('users').where({ id }).delete()
+
+    return userDeleted
+  }
 }

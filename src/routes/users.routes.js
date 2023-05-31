@@ -10,3 +10,4 @@ export const usersRoutes = Router()
 
 usersRoutes.post('/', usersController.create)
 usersRoutes.put('/', EnsureAuthenticated, usersController.update)
+usersRoutes.delete('/', EnsureAuthenticated, usersController.delete)

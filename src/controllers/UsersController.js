@@ -1,6 +1,7 @@
 import { UserRepository } from '../repositories/UserRepository.js'
 import { UserCreateService } from '../services/user/UserCreateService.js'
 import { UserUpdateService } from '../services/user/UserUpdateService.js'
+import { UserDeleteService } from '../services/user/UserDeleteService.js'
 
 export class UsersController {
   async create(req, res) {
@@ -22,6 +23,17 @@ export class UsersController {
     const userUpdateService = new UserUpdateService(userRepository)
 
     await userUpdateService.execute({ id, name, email, password, newPassword })
+
+    return res.json()
+  }
+
+  async delete(req, res) {
+    const id = req.user.id
+
+    const userRepository = new UserRepository()
+    const userDeleteService = new UserDeleteService(userRepository)
+
+    userDeleteService.execute(id)
 
     return res.json()
   }
