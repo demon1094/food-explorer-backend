@@ -1,4 +1,4 @@
-import { AppError } from "../utils/AppError.js"
+import { AppError } from "../../utils/AppError.js"
 import { hash, compare } from "bcrypt"
 
 export class UserUpdateService {

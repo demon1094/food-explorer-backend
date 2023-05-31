@@ -1,6 +1,6 @@
 import { UserRepository } from '../repositories/UserRepository.js'
-import { UserCreateService } from '../services/UserCreateService.js'
-import { UserUpdateService } from '../services/UserUpdateService.js'
+import { UserCreateService } from '../services/user/UserCreateService.js'
+import { UserUpdateService } from '../services/user/UserUpdateService.js'
 
 export class UsersController {
   async create(req, res) {
@@ -16,7 +16,7 @@ export class UsersController {
 
   async update(req, res) {
     const { name, email, password, newPassword } = req.body
-    const { id } = req.params
+    const id = req.user.id
 
     const userRepository = new UserRepository()
     const userUpdateService = new UserUpdateService(userRepository)
