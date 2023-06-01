@@ -1,6 +1,10 @@
 import knex from '../database/knex/index.js'
 
 export class DishRepository {
+  constructor() {
+    this.dishes = knex('dishes')
+  }
+
   async findById(id) {
     const dish = await knex('dishes').where({ id }).first()
 
