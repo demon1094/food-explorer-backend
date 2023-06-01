@@ -7,7 +7,7 @@ export class DishRepository {
   }
 
   async findById(id) {
-    const dish = await this.dishes.where({ id }).first()
+    const dish = await this.dishes.where({ id })
 
     return dish
   }
