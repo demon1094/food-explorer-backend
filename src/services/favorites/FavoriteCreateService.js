@@ -13,7 +13,7 @@ export class FavoritesCreateService {
       throw new AppError('Prato não encontrado.', 404)
     }
 
-    const dishAlreadyFavorited = await this.favoritesRepository.findByDishId(dish_id)
+    const dishAlreadyFavorited = await this.favoritesRepository.findById({ dish_id, user_id })
 
     if (dishAlreadyFavorited) {
       throw new AppError('Este prato já está na lista de favoritos.', 401)

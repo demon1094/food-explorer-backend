@@ -5,8 +5,11 @@ export class FavoritesRepository {
     this.favorites = knex('favorites')
   }
 
-  async findByDishId(dish_id) {
-    const favoriteDish = await this.favorites.where({ dish_id }).first()
+  async findById({ dish_id, user_id }) {
+    const favoriteDish = await this.favorites
+    .where({ dish_id })
+    .andWhere({ user_id })
+    .first()
 
     return favoriteDish
   }

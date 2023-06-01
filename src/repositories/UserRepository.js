@@ -1,20 +1,24 @@
 import knex from '../database/knex/index.js'
 
 export class UserRepository {
+  constructor() {
+    this.users = knex('users')
+  }
+
   async findByEmail(email) {
-    const user = await knex('users').where({ email }).first()
+    const user = await this.users.where({ email }).first()
 
     return user
   }
   
   async findById(id) {
-    const user = await knex('users').where({ id }).first()
+    const user = await this.users.where({ id }).first()
 
     return user
   }
 
   async create({ name, email, password }) {
-    const user_id = await knex('users').insert({
+    const user_id = await this.users.insert({
       name,
       email,
       password
@@ -24,7 +28,7 @@ export class UserRepository {
   }
 
   async update({ id, name, email, password }) {
-    const userUpdated = await knex('users')
+    const userUpdated = await this.users
     .where({ id })
     .update({
       name,
@@ -37,7 +41,7 @@ export class UserRepository {
   }
 
   async delete(id) {
-    const userDeleted = await knex('users').where({ id }).delete()
+    const userDeleted = await this.users.where({ id }).delete()
 
     return userDeleted
   }

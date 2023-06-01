@@ -3,16 +3,17 @@ import knex from '../database/knex/index.js'
 export class DishRepository {
   constructor() {
     this.dishes = knex('dishes')
+    this.ingredients = knex('ingredients')
   }
 
   async findById(id) {
-    const dish = await knex('dishes').where({ id }).first()
+    const dish = await this.dishes.where({ id }).first()
 
     return dish
   }
 
   async create({ name, price, description, category, ingredients }) {
-    const [ dish_id ] = await knex('dishes').insert({
+    const [ dish_id ] = await this.dishes.insert({
       name,
       price,
       description,
@@ -26,11 +27,11 @@ export class DishRepository {
       }
     })
 
-    await knex('ingredients').insert(ingredientsInsert)
+    await this.ingredients.insert(ingredientsInsert)
   }
 
   async update({ id, name, price, description, category, ingredients }) {
-    await knex('dishes')
+    await this.dishes
     .where({ id })
     .update({
       name,
@@ -47,16 +48,16 @@ export class DishRepository {
       }
     })
 
-    await knex('ingredients')
+    await this.ingredients
     .where({ dish_id: id })
     .delete()
 
-    await knex('ingredients').insert(ingredientsUpdate)
+    await this.ingredients.insert(ingredientsUpdate)
   }
 
   async show(id) {
-    const dishes = await knex('dishes').where({ id }).first()
-    const ingredients = await knex('ingredients').where({ dish_id: id })
+    const dishes = await this.dishes.where({ id }).first()
+    const ingredients = await this.ingredients.where({ dish_id: id })
 
     return {
       ...dishes,
@@ -65,7 +66,7 @@ export class DishRepository {
   }
 
   async index({ name }) {
-    const dishes = await knex('ingredients')
+    const dishes = await this.ingredients
     .select([
       'dishes.name',
       'dishes.id'
@@ -80,7 +81,7 @@ export class DishRepository {
   }
 
   async delete(id) {
-    const deletedDish = await knex('dishes').where({ id }).delete()
+    const deletedDish = await this.dishes.where({ id }).delete()
 
     return deletedDish
   }
