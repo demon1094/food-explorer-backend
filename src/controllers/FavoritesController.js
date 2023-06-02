@@ -28,4 +28,15 @@ export class FavoritesController {
 
     return res.json(userFavoriteDishes)
   }
+
+  async delete(req, res) {
+    const { id } = req.query
+    const user_id = req.user.id
+
+    const favoritesRepository = new FavoritesRepository()
+
+    await favoritesRepository.delete(id, user_id)
+
+    return res.json()
+  }
 }

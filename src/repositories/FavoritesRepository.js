@@ -31,8 +31,12 @@ export class FavoritesRepository {
     return userFavoriteDishes
   }
 
-  async delete(id) {
-    const deletedFavorite = await this.favorites.where({ id }).first().delete()
+  async delete(id, user_id) {
+    const deletedFavorite = await this.favorites
+    .where({ id })
+    .andWhere({ user_id })
+    .first()
+    .delete()
 
     return deletedFavorite
   }
