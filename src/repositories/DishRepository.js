@@ -28,6 +28,8 @@ export class DishRepository {
     })
 
     await this.ingredients.insert(ingredientsInsert)
+
+    return dish_id
   }
 
   async update({ id, name, price, description, category, ingredients }) {
@@ -53,6 +55,15 @@ export class DishRepository {
     .delete()
 
     await this.ingredients.insert(ingredientsUpdate)
+  }
+
+  async updateImage(id, image) {
+    await this.dishes
+    .where({ id })
+    .update({
+      image,
+      updated_at: knex.fn.now()
+    })
   }
 
   async show(id) {

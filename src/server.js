@@ -1,15 +1,22 @@
-import 'express-async-errors'
+import "express-async-errors"
 import express from "express"
-import { AppError } from './utils/AppError.js'
+import { AppError } from "./utils/AppError.js"
 
-import { sqliteConnection } from './database/sqlite/index.js'
+import * as uploadConfig from "./configs/upload.js"
 
-import { routes } from './routes/index.js'
+import { sqliteConnection } from "./database/sqlite/index.js"
+
+import { routes } from "./routes/index.js"
+
+import cors from "cors"
 
 sqliteConnection()
 
 const app = express()
+
+app.use(cors())
 app.use(express.json())
+app.use('/files', express.static(uploadConfig.UPLOADS_FOLDER))
 app.use(routes)
 
 app.use((error, req, res, next) => {
