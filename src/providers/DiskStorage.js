@@ -1,5 +1,5 @@
 import * as uploadConfig from "../configs/upload.js"
-import path from 'path'
+import path from "path"
 import fs from "fs"
 
 export class DiskStorage {
