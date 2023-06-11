@@ -11,6 +11,12 @@ export class OrderRepository {
     return order
   }
 
+  async findByUserId(user_id) {
+    const orders = await this.orders.where({ user_id })
+
+    return orders
+  }
+
   async create(user_id, description) {
     const [ order_id ] = await this.orders.insert({
       user_id,
@@ -29,5 +35,11 @@ export class OrderRepository {
     })
 
     return orderUpdated
+  }
+
+  async index() {
+    const orders = await this.orders
+
+    return orders
   }
 }

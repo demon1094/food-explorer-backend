@@ -1,5 +1,6 @@
 import { OrderCreateService } from "../services/orders/OrderCreateService.js"
 import { OrderUpdateService } from "../services/orders/OrderUpdateService.js"
+import { OrderIndexService } from "../services/orders/OrderIndexService.js"
 import { OrderRepository } from "../repositories/OrderRepository.js"
 import { UserRepository } from "../repositories/UserRepository.js"
 
@@ -27,5 +28,17 @@ export class OrdersController {
     const oderUpdated = await orderUpdateService.execute(user_id, id, status)
 
     return res.json(oderUpdated)
+  }
+
+  async index(req, res) {
+    const user_id = req.user.id
+
+    const orderRepository = new OrderRepository()
+    const userRepository = new UserRepository()
+    const orderIndexService = new OrderIndexService(orderRepository, userRepository)
+
+    const orders = await orderIndexService.execute(user_id)
+
+    return res.json(orders)
   }
 }

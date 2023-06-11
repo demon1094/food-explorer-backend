@@ -79,8 +79,12 @@ export class DishRepository {
   async index({ name }) {
     const dishes = await this.ingredients
     .select([
+      'dishes.id',
       'dishes.name',
-      'dishes.id'
+      'dishes.price',
+      'dishes.description',
+      'dishes.category',
+      'dishes.image'
     ])
     .whereLike('dishes.name', `%${name}%`)
     .orWhereLike('ingredients.name', `%${name}%`)
