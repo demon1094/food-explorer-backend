@@ -25,8 +25,14 @@ export class FavoritesRepository {
 
   async index(user_id) {
     const userFavoriteDishes = await this.favorites
+    .select([
+      'dishes.id',
+      'dishes.name',
+      'dishes.image'
+    ])
     .where({ user_id })
-    .orderBy('id')
+    .innerJoin('dishes', 'dishes.id', 'favorites.dish_id')
+    .orderBy('favorites.id')
 
     return userFavoriteDishes
   }
