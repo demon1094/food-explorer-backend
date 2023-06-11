@@ -29,6 +29,18 @@ export class FavoritesController {
     return res.json(userFavoriteDishes)
   }
 
+  async show(req, res) {
+    const { dish_id } = req.params
+    const user_id = req.user.id
+    console.log(dish_id)
+
+    const favoritesRepository = new FavoritesRepository()
+
+    const favoriteDish = await favoritesRepository.show(dish_id, user_id)
+
+    return res.json(favoriteDish)
+  }
+
   async delete(req, res) {
     const { dish_id } = req.query
     const user_id = req.user.id
