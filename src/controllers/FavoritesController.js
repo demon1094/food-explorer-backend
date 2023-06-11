@@ -30,12 +30,12 @@ export class FavoritesController {
   }
 
   async delete(req, res) {
-    const { id } = req.query
+    const { dish_id } = req.query
     const user_id = req.user.id
 
     const favoritesRepository = new FavoritesRepository()
 
-    await favoritesRepository.delete(id, user_id)
+    await favoritesRepository.delete(dish_id, user_id)
 
     return res.json()
   }
