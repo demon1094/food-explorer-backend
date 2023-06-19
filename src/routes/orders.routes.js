@@ -9,5 +9,5 @@ const ordersController = new OrdersController()
 export const ordersRoutes = Router()
 
 ordersRoutes.post('/', EnsureAuthenticated, ordersController.create)
-ordersRoutes.put('/', EnsureAuthenticated, ordersController.update)
+ordersRoutes.patch('/', EnsureAuthenticated, ordersController.update)
 ordersRoutes.get('/', EnsureAuthenticated, ordersController.index)

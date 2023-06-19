@@ -13,7 +13,7 @@ export class DishesController {
     const userRepository = new UserRepository()
     const dishCreateService = new DishCreateService(dishRepository, userRepository)
 
-    await dishCreateService.execute({
+    const response = await dishCreateService.execute({
       user_id,
       name,
       price,
@@ -22,7 +22,7 @@ export class DishesController {
       ingredients
     })
 
-    return res.status(201).json()
+    return res.status(201).json(response)
   }
 
   async update(req, res) {
