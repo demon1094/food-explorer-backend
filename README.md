@@ -17,9 +17,9 @@ https://food-explorer-backend-production-df7b.up.railway.app/
 ```
 #
 🖇️ Diagrama do Banco de Dados
-
-
-![image](https://github.com/demon1094/food-explorer-backend/assets/70300511/62d3661b-1033-42c5-be25-cfa1577d9905)
+```
+https://drawsql.app/teams/food-explorer/diagrams/food-explorer
+```
 #
 🔧 Instalação e Execução
 ```
